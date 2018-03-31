@@ -1,28 +1,21 @@
 {
-  "name": "randomNumberGenerator",
-  "version": "1.0.0",
-  "description": "Proyecto de generacion de numeros aleatorios para la clase de Metodos Cuantitativos y Simulacion",
-  "main": "index.js",
+  "name": "proyecto-1",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-scripts": "1.1.1"
+  },
+  "main": "src/electron-starter.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/BitsPlease/random-number-generator.git"
-  },
-  "keywords": [
-    "Random",
-    "Number",
-    "Generator"
-  ],
-  "author": "Bits Please",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/BitsPlease/random-number-generator/issues"
-  },
-  "homepage": "https://gitlab.com/BitsPlease/random-number-generator#README",
   "devDependencies": {
-    "electron": "^1.8.2"
+    "electron": "^1.8.4"
   }
 }
