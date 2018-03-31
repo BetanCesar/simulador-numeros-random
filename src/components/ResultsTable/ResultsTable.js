@@ -2,7 +2,6 @@ import React from 'react';
 import TableRow from "../TableRow";
 
 const ResultsTable = ({results}) => {
-    console.log(results);
     return(
         <div>
            <table>

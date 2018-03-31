@@ -14,27 +14,48 @@ class MCC extends  Component{
     calculateNumbers(seed){
         let results = [];
         let last_seed = seed;
-        for(let i = 1; i<100; i++){
-            let generator = "X" + i + "=" + "(" + last_seed + ")2";
-            let operation = last_seed * last_seed;
-            let randomNum =this.getRandomNumber(operation);
-            let ri = randomNum / 10000;
-            last_seed = randomNum;
-            let result = {generator:generator, operation:operation, randomNumber:randomNum, ri:ri};
-            results.push(result);
-
+        let size = seed.toString().length;
+        let generate = true;
+        let i = 1;
+        let div = "1";
+        for (let j = 0; j< size ; j++){
+            div += "0";
         }
+        console.log(div);
+        do{
+            let generator = "X" + i + "=" + "(" + last_seed + ")2";
+            let operation = this.getOperation(last_seed * last_seed);
+            let randomNum =this.getRandomNumber(operation, size);
+            let ri = randomNum / div;
+            last_seed = randomNum;
+            let newResult = {generator:generator, operation:operation, randomNumber:randomNum, ri:ri};
+            if(results.filter(result => result.randomNumber === randomNum).length > 0){
+                generate = false;
+            }else {
+                results.push(newResult);
+                i++;
+            }
+            if(i > 100){
+                generate = false;
+            }
+        } while (generate);
         this.setState({results});
 
     }
 
-    getRandomNumber(number){
-        let newNum = number;
-        if(number.length%2 !== 0){
+    getOperation(number){
+        let newNum = number.toString();
+        if(newNum.length%2 !== 0){
             newNum = '0' + number;
         }
-        newNum = newNum.substring(3,newNum.length-2);
         return newNum;
+    }
+
+    getRandomNumber(number, size){
+        let size2 = number.toString().length;
+        let digit = (size2-size) / 2;
+        number = number.substring(digit, (digit + size));
+        return number;
     }
 
 
