@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import MCC from "./components/MCC";
+import MC from "./components/MC";
+import MCM from "./components/MCM";
+import GM from "./components/GM";
+
 
 class App extends Component {
-  render() {
+
+    render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome Allan</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <BrowserRouter>
+            <div className="App">
+                <Switch>
+                    <Route exact path="/" component={MCC}/>
+                    <Route exact path="/MC" component={MC}/>
+                    <Route exact path="/MCM" component={MCM}/>
+                    <Route exact path="/GM" component={GM}/>
+                    <Redirect from='*' to='/' />
+                </Switch>
+            </div>
+        </BrowserRouter>
+
     );
   }
 }
