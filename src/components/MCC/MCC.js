@@ -35,9 +35,6 @@ class MCC extends  Component{
                 results.push(newResult);
                 i++;
             }
-            if(i > 100){
-                generate = false;
-            }
         } while (generate);
         this.setState({results});
 

@@ -2,7 +2,6 @@ import React from 'react';
 import './TableRow.css';
 
 const TableRow = (result) => {
-
     return(
        <tr>
            <td>{result.generator}</td>
