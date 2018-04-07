@@ -53,12 +53,13 @@ class MC extends  Component{
     render(){
         const{ results } = this.state;
         return(
-            <div>
+            <div className="with-top-navbar">
                 <Header/>
-                <h1>Metodo Congruencial </h1>
-                <AddSeedMCForm addSeed={this.calculateNumbers}/>
-                <ResultsTable results={results}/>
-
+                <div className="container-fluid container-fluid-spacious">
+                    <h1>Metodo Congruencial </h1>
+                    <AddSeedMCForm addSeed={this.calculateNumbers}/>
+                    <ResultsTable results={results}/>
+                </div>
             </div>
 
         );

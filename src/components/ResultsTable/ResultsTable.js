@@ -3,15 +3,18 @@ import TableRow from "../TableRow";
 
 const ResultsTable = ({results}) => {
     return(
-        <div>
-           <table>
+        <div className="row">
+            <hr />
+           <table className="table">
+               <thead>
+                   <tr>
+                       <th>Generador</th>
+                       <th>Operacion</th>
+                       <th>No. aleatorio</th>
+                       <th>Ri</th>
+                   </tr>
+               </thead>
                <tbody>
-               <tr>
-                   <th>Generador</th>
-                   <th>Operacion</th>
-                   <th>No. aleatorio</th>
-                   <th>Ri</th>
-               </tr>
                    {results.map((result, i) =>
                        <TableRow key={i} {...result}/>
                    )}

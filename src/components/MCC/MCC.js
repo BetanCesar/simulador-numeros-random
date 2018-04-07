@@ -59,12 +59,13 @@ class MCC extends  Component{
     render(){
         const{ results } = this.state;
         return(
-            <div>
+            <div className="with-top-navbar">
                 <Header/>
-                <h1>Metodo de los Centros Cuadrados</h1>
-                <AddSeedForm addSeed={this.calculateNumbers}/>
-                <ResultsTable results={results}/>
-
+                <div className="container-fluid container-fluid-spacious">
+                    <h1>Metodo de los Centros Cuadrados</h1>
+                    <AddSeedForm addSeed={this.calculateNumbers}/>
+                    <ResultsTable results={results}/>
+                </div>
             </div>
 
         );

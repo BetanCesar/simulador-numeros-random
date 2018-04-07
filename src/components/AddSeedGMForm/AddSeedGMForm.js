@@ -24,10 +24,25 @@ const AddSeedGMForm = ({addSeed = f => f}) => {
 
     return ( <form onSubmit ={submit} >
         <h2>Agregar Semilla</h2>
-        <input ref={input => _x0 = input} type="text" placeholder="x0" required />
-        <input ref={input => _a = input} type="text" placeholder="a" required />
-        <input ref={input => _m = input} type="text" placeholder="m" required />
-        <button> Agregar </ button>
+        <div className="form-group row">
+            <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>x0 = </label>
+            <div class="col-sm-11">
+                <input ref={input => _x0 = input} type="text" placeholder="x0" className="form-control" required />
+            </div>
+        </div>
+        <div className="form-group row">
+            <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>a = </label>
+            <div class="col-sm-11">
+                <input ref={input => _a = input} type="text" placeholder="a" className="form-control" required />
+            </div>
+        </div>
+        <div className="form-group row">
+            <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>m = </label>
+            <div class="col-sm-11">
+                <input ref={input => _m = input} type="text" placeholder="m" className="form-control" required />
+            </div>
+        </div>
+        <button className="btn btn-pill btn-primary center-block"> Generar </ button>
     </form> );
 };
 

@@ -19,8 +19,10 @@ const AddSeedForm = ({addSeed = f => f}) => {
 
     return ( <form onSubmit ={submit} >
         <h2>Agregar Semilla</h2>
-        <input ref={input => _seed = input} type="text" placeholder="Semilla" required />
-        <button> Agregar </ button>
+        <div className="form-group col">
+            <input ref={input => _seed = input} type="text" placeholder="Semilla" className="form-control" required />
+        </div>
+        <button className="btn btn-pill btn-primary center-block"> Generar </ button>
     </form> );
 };
 
