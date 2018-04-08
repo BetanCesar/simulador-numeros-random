@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Header from "../Header";
 import AddSeedMCForm from "../AddSeedMCForm"
 import ResultsTable from "../ResultsTable"
+import "./MC.css";
 
 
 class MC extends  Component{
     constructor(props) {
         super(props);
-        this.state = { results: []};
+        this.state = { results: [], a: '', c: '', m: '', x: ''};
         this.calculateNumbers = this.calculateNumbers.bind(this);
     }
 
@@ -18,6 +19,9 @@ class MC extends  Component{
         let generate = true;
         let i = 1;
         do{
+            if(i === 1){
+                this.setState({a: last_seed.a, c: last_seed.c, m: last_seed.m, x: last_seed.x0})
+            }
             let resOperation = last_seed.a*last_seed.x0 + Number(last_seed.c);
             const generator = "X" + i + "=" + "(" + last_seed.a + "(" + last_seed.x0 +")" + "+" + last_seed.c + ")=" +
                 resOperation + "mod" + last_seed.m;
@@ -37,7 +41,7 @@ class MC extends  Component{
             }
         } while (generate);
         this.setState({results});
-
+        document.getElementById("dat-mc").removeAttribute("class");
     }
 
     getOperation(number, mod){
@@ -58,6 +62,9 @@ class MC extends  Component{
                 <div className="container-fluid container-fluid-spacious">
                     <h1>Metodo Congruencial </h1>
                     <AddSeedMCForm addSeed={this.calculateNumbers}/>
+                    <h3 id="dat-mc" className="datos-mc">
+                        Datos: x0 = {this.state.x}, a = {this.state.a}, c = {this.state.c}, m = {this.state.m}
+                    </h3>
                     <ResultsTable results={results}/>
                 </div>
             </div>

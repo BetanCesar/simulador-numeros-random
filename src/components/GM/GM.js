@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 import Header from "../Header";
 import AddSeedGMForm from "../AddSeedGMForm";
-import ResultsTable from "../ResultsTable"
+import ResultsTable from "../ResultsTable";
+import "./GM.css";
 
 class GM extends  Component{
     constructor(props) {
         super(props);
-        this.state = { results: []};
+        this.state = { results: [], a: '', m: '', x: ''};
         this.calculateNumbers = this.calculateNumbers.bind(this);
     }
-
-
-
 
     calculateNumbers(seed){
         let results = [];
@@ -69,6 +67,9 @@ class GM extends  Component{
         let generate = true;
         let i = 1;
         do{
+            if(i === 1){
+                this.setState({a: last_seed.a, m: last_seed.m, x: last_seed.x0})
+            }
             let resOperation = last_seed.a*last_seed.x0;
             const generator = "X" + i + "=" + "(" + last_seed.a + "(" + last_seed.x0 +")"+ ")=" +
                 resOperation + "mod" + last_seed.m;
@@ -87,7 +88,7 @@ class GM extends  Component{
         } while (generate);
         this.setState({results});
         this.chiCuadrada(numbers);
-
+        document.getElementById("dat-gm").removeAttribute("class");
     }
 
     getOperation(number, mod){
@@ -174,6 +175,9 @@ class GM extends  Component{
                 <div className="container-fluid container-fluid-spacious">
                     <h1>Generador Multiplicativo </h1>
                     <AddSeedGMForm addSeed={this.calculateNumbers}/>
+                    <h3 id="dat-gm" className="datos-gm">
+                        Datos: x0 = {this.state.x}, a = {this.state.a}, m = {this.state.m}
+                    </h3>
                     <ResultsTable results={results}/>
                 </div>
             </div>

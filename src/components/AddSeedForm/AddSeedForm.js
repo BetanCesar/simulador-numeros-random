@@ -20,7 +20,7 @@ const AddSeedForm = ({addSeed = f => f}) => {
     return ( <form onSubmit ={submit} >
         <h2>Agregar Semilla</h2>
         <div className="form-group col">
-            <input ref={input => _seed = input} type="text" placeholder="Semilla" className="form-control" required />
+            <input ref={input => _seed = input} type="text" placeholder="Semilla" className="form-control" pattern="^[0-9]*$" onKeyDown="return jsDecimals(event);" required />
         </div>
         <button className="btn btn-pill btn-primary center-block"> Generar </ button>
     </form> );

@@ -1,0 +1,28 @@
+.alert-success:before{
+    content: "Serie agregada correctamente";
+    opacity: 1;
+}
+.alert-success{
+    position: relative;
+    padding: 3px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: white;
+    background-color: rgb(39,203,42);
+    width: 20%;
+    margin-left: 20px;
+    display: inline-block;
+    bottom: 7px;
+    font-size: 14px;
+}
+.message-class{
+    visibility: hidden;
+}
+
+.message-list{
+    list-style: decimal;
+}
+
+.datos-mcm{
+    visibility: hidden;
+}

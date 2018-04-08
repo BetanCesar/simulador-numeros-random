@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import Header from "../Header";
 import AddSeedForm from "../AddSeedForm";
 import ResultsTable from "../ResultsTable";
+import "./MCC.css";
 
 class MCC extends  Component{
     constructor(props) {
         super(props);
-        this.state = { results: []};
+        this.state = { results: [], seed: ''};
         this.calculateNumbers = this.calculateNumbers.bind(this);
     }
 
@@ -23,6 +24,9 @@ class MCC extends  Component{
         }
         console.log(div);
         do{
+            if(i === 1){
+                this.setState({seed: last_seed})
+            }
             let generator = "X" + i + "=" + "(" + last_seed + ")2";
             let operation = this.getOperation(last_seed * last_seed);
             let randomNum =this.getRandomNumber(operation, size);
@@ -37,7 +41,7 @@ class MCC extends  Component{
             }
         } while (generate);
         this.setState({results});
-
+        document.getElementById("dat-mcc").removeAttribute("class");
     }
 
     getOperation(number){
@@ -64,10 +68,12 @@ class MCC extends  Component{
                 <div className="container-fluid container-fluid-spacious">
                     <h1>Metodo de los Centros Cuadrados</h1>
                     <AddSeedForm addSeed={this.calculateNumbers}/>
+                    <h3 id="dat-mcc" className="datos-mcc">
+                        Semilla = {this.state.seed}
+                    </h3>
                     <ResultsTable results={results}/>
                 </div>
             </div>
-
         );
     }
 

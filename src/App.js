@@ -8,6 +8,7 @@ import MCM from "./components/MCM";
 import GM from "./components/GM";
 
 
+
 class App extends Component {
 
     render() {
@@ -27,5 +28,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
