@@ -115,7 +115,7 @@ class MC extends  Component{
             if(cont <=4){
                 max_interval = max_interval + inter;
                 if(max_interval > 1){
-                    max_interval = max_interval - (max_interval-1);
+                    max_interval = max;
                 }
                 while (nums[lastIndex] >= min_interval && nums[lastIndex] <= max_interval){
                     cont++;
