@@ -210,23 +210,11 @@ class GM extends  Component{
                             <h4>
                                 {this.state.chi}
                             </h4>
-                            <h5>
-                                Valor teórico: {this.state.teorico}
-                            </h5>
-                            <h5>
-                                Valor obtenido: {this.state.obtenido}
-                            </h5>
                         </div>
                         <div className="col-sm-5 col-sm-offset-1 jumbotron">
                             <h4>
                                 {this.state.kol}
                             </h4>
-                            <h5>
-                                Valor teórico: {this.state.teo}
-                            </h5>
-                            <h5>
-                                Valor obtenido: {this.state.obt}
-                            </h5>
                         </div>
                     </div>
                     <ResultsTable results={results}/>
