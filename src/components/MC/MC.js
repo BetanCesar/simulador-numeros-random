@@ -112,16 +112,31 @@ class MC extends  Component{
                 cont++;
                 lastIndex++;
             }
+            if(cont <=4){
+                max_interval = max_interval + inter;
+                if(max_interval > 1){
+                    max_interval = max_interval - (max_interval-1);
+                }
+                while (nums[lastIndex] >= min_interval && nums[lastIndex] <= max_interval){
+                    cont++;
+                    lastIndex++;
+                }
+            }
+
             const fei = ((max_interval-min_interval)/(max-min));
-            const fei2 = (((fei-cont)*(fei-cont))/fei);
-            const key={ k:i, clase:min_interval + "-" + max_interval, foi: cont, foir: cont/nums.length,
+            const foir = cont/nums.length;
+            const fei2 = (((fei-foir)*(fei-foir))/fei);
+            const key={ k:i, clase:min_interval + "-" + max_interval, foi: cont, foir: foir,
                 fei: fei, fei2: fei2};
-            category.push(key);
+            if(cont > 0){
+                feis = feis + fei2;
+                category.push(key);
+            }
             min_interval = max_interval;
             max_interval = max_interval + inter;
-            feis += fei2;
         }
-        let teorico = chis[v-1];
+        console.log(category);
+        let teorico = chis[(category.length)-1];
         this.setState({teorico: teorico});
         this.setState({obtenido: feis});
         if(feis <= teorico){
