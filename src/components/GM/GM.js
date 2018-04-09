@@ -7,62 +7,13 @@ import "./GM.css";
 class GM extends  Component{
     constructor(props) {
         super(props);
-        this.state = { results: [], a: '', m: '', x: ''};
+        this.state = { results: [], a: '', m: '', x: '', chi: '', teorico: 0, obtenido: 0, kol: '', teo: 0, obt: 0};
         this.calculateNumbers = this.calculateNumbers.bind(this);
     }
 
     calculateNumbers(seed){
         let results = [];
-        const numbers = [0.458,
-            0.464,
-            0.486,
-            0.496,
-            0.51,
-            0.514,
-            0.516,
-            0.52,
-            0.524,
-            0.524,
-            0.524,
-            0.54,
-            0.556,
-            0.558,
-            0.558,
-            0.56,
-            0.562,
-            0.562,
-            0.568,
-            0.568,
-            0.57,
-            0.572,
-            0.574,
-            0.578,
-            0.58,
-            0.586,
-            0.588,
-            0.592,
-            0.592,
-            0.592,
-            0.594,
-            0.602,
-            0.602,
-            0.618,
-            0.618,
-            0.63,
-            0.638,
-            0.64,
-            0.642,
-            0.642,
-            0.648,
-            0.648,
-            0.66,
-            0.66,
-            0.666,
-            0.67,
-            0.672,
-            0.692,
-            0.704,
-            0.756];
+        const numbers = [];
         let last_seed = seed;
         let generate = true;
         let i = 1;
@@ -82,12 +33,16 @@ class GM extends  Component{
             if(results.filter(result => result.randomNumber === randomNum).length > 0){
                 generate = false;
             }else {
+                numbers.push(ri);
                 results.push(newResult);
                 i++;
             }
         } while (generate);
         this.setState({results});
-        this.chiCuadrada(numbers);
+        let chi = this.chiCuadrada(numbers);
+        this.setState({chi: chi});
+        let kolmogrov = this.kolmogrov(numbers);
+        this.setState({kol: kolmogrov});
         document.getElementById("dat-gm").removeAttribute("class");
     }
 
@@ -100,6 +55,7 @@ class GM extends  Component{
 
     chiCuadrada(numbers){
         let nums = [];
+        const chis = [3.84, 5.99, 7.81, 9.49, 11.07, 12.59, 14.07, 15.51, 16.92, 18.31, 19.68, 21.0, 22.4, 23.7, 25.0];
         let sum = 0;
         /*for (let num in numbers) {
             nums.push(num.ri);
@@ -110,20 +66,18 @@ class GM extends  Component{
             sum += numbers[i];
         }
         nums.sort();
-        console.log(nums);
         const min = nums[0];
-        const  max = nums[nums.length-1];
+        const max = nums[nums.length-1];
         //Cambiar por numero de parametros
-        const v = 3;
-        const  k = this.getK(nums.length);
+        const k = this.getK(nums.length);
+        const v = k-1;
         const inter = (max - min)/k;
-        const avg = sum / numbers.length;
-        const lamda = 1/avg;
         //Division de clase
         let category = [];
-        let  min_interval = min;
+        let min_interval = min;
         let max_interval = min + inter;
-        console.log("max interval " + max_interval);
+        const media = sum / nums.length;
+        const lamda = 1/media;
         let lastIndex = 0;
         /*for(let i = 1; i <= k; i++){
             let cont = 0;
@@ -138,34 +92,92 @@ class GM extends  Component{
             min_interval = max_interval;
             max_interval = max_interval + inter;
         }*/
-
+        let feis = 0;
         for(let i = 1; i <= k; i++){
             let cont = 0;
             if(i===k){
-                max_interval = max_interval + 0.1;
+                max_interval = max_interval + 0.0001;
             }
             while (nums[lastIndex] >= min_interval && nums[lastIndex] <= max_interval){
                 cont++;
                 lastIndex++;
-                console.log(cont);
             }
-            const key={ k:i, clase:min_interval + "-" + max_interval, foia: cont, foir: cont/nums.length};
+            const fei = ((max_interval-min_interval)/(max-min));
+            const fei2 = (((fei-cont)*(fei-cont))/fei);
+            const key={ k:i, clase:min_interval + "-" + max_interval, foi: cont, foir: cont/nums.length,
+                fei: fei, fei2: fei2};
             category.push(key);
             min_interval = max_interval;
             max_interval = max_interval + inter;
+            feis += fei2;
         }
-        console.log(category);
-
-
+        let teorico = chis[v-1];
+        this.setState({teorico: teorico});
+        this.setState({obtenido: feis});
+        if(feis <= teorico){
+            return "Los números generados Sí son aceptados con la prueba de Chi Cuadrada Uniforme con un grado de confianza " +
+                "del 5%";
+        }else{
+            return "Los números generados No son aceptados con la prueba de Chi Cuadrada Uniforme con un grado de confianza " +
+                "del 5%";
+        }
     }
-
     getK(n){
         const resLog = Math.log(n) / Math.LN10;
         return Math.floor(1+3.222*resLog);
     }
-
-
-
+    kolmogrov(numbers){
+        const kols = [0.975, 0.84189, 0.7076, 0.62394, 0.56328, 0.51926, 0.48342, 0.45427, 0.43001, 0.40925, 0.39122,
+            0.37543, 0.36143, 0.34890, 0.3375, 0.32733, 0.31796, 0.30936, 0.30143, 0.29408, 0.28724, 0.28087, 0.2749,
+            0.26931, 0.26404, 0.25908, 0.25438, 0.24993, 0.24571, 0.2417, 0.23788, 0.23424, 0.2307, 0.22743, 0.22425,
+            0.22119, 0.21826, 0.21544, 0.21273, 0.21012, 0.2076, 0.20517, 0.20283, 0.20056, 0.19837, 0.19625, 0.19420,
+            0.19221, 0.19028, 0.18841];
+        let nums = [];
+        let ieses = [];
+        let sn = [];
+        let sn2 = [];
+        let fx = [];
+        let fx2 = [];
+        for (let i = 0; i < numbers.length; i++){
+            nums.push(numbers[i]);
+            ieses.push(i+1);
+        }
+        nums.sort();
+        const size = nums.length;
+        for (let i = 0; i < size; i++){
+            sn.push(ieses[i]/size);
+            sn2.push((ieses[i]-1)/size);
+        }
+        for (let i = 0; i < size; i++){
+            fx.push(Math.abs(sn[i]-nums[i]));
+            fx2.push(Math.abs(nums[i]-sn2[i]));
+        }
+        fx.sort();
+        fx2.sort();
+        let d = 0;
+        let dmax = fx[size-1];
+        let dmin = fx2[size-1];
+        let teorico = 0;
+        if(size < 51){
+            teorico = kols[size-1];
+        }else{
+            teorico = (1.36)/Math.sqrt(size);
+        }
+        if(dmax >= dmin){
+            d = dmax;
+        }else{
+            d = dmin;
+        }
+        this.setState({teo: teorico});
+        this.setState({obt: d});
+        if(d <= teorico){
+            return "Los números generados Sí son aceptados con la prueba de Kolmogrov-Smirnov Uniforme con un grado de confianza " +
+                "del 5%";
+        }else{
+            return "Los números generados No son aceptados con la prueba de Kolmogrov-Smirnov Uniforme con un grado de confianza " +
+                "del 5%";
+        }
+    }
 
     render(){
         const{ results } = this.state;
@@ -175,9 +187,33 @@ class GM extends  Component{
                 <div className="container-fluid container-fluid-spacious">
                     <h1>Generador Multiplicativo </h1>
                     <AddSeedGMForm addSeed={this.calculateNumbers}/>
-                    <h3 id="dat-gm" className="datos-gm">
-                        Datos: x0 = {this.state.x}, a = {this.state.a}, m = {this.state.m}
-                    </h3>
+                    <div id="dat-gm" className="datos-gm">
+                        <h3>
+                            Datos: x0 = {this.state.x}, a = {this.state.a}, m = {this.state.m}
+                        </h3>
+                        <div className="col-sm-5 jumbotron">
+                            <h4>
+                                {this.state.chi}
+                            </h4>
+                            <h5>
+                                Valor teórico: {this.state.teorico}
+                            </h5>
+                            <h5>
+                                Valor obtenido: {this.state.obtenido}
+                            </h5>
+                        </div>
+                        <div className="col-sm-5 col-sm-offset-1 jumbotron">
+                            <h4>
+                                {this.state.kol}
+                            </h4>
+                            <h5>
+                                Valor teórico: {this.state.teo}
+                            </h5>
+                            <h5>
+                                Valor obtenido: {this.state.obt}
+                            </h5>
+                        </div>
+                    </div>
                     <ResultsTable results={results}/>
                 </div>
             </div>

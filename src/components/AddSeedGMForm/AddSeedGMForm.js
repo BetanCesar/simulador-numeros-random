@@ -9,9 +9,9 @@ const AddSeedGMForm = ({addSeed = f => f}) => {
             alert("Los campos no cuentan con la longitud requerida");
         }else if(isNaN(_x0.value) || isNaN(_a.value) || isNaN(_m.value) ){
             alert("El campo tiene que ser un número");
-        }else if(_m.value <= _a.value){
+        }else if(parseInt(_m) <= parseInt(_a)){
             alert("El modulo (m) tiene que ser mayor que el multiplicador (a)");
-        }else if(_m.value <= _x0.value){
+        }else if(parseInt(_m) <= parseInt(_x0)){
             alert("El modulo (m) tiene que ser mayor que la semilla (x0)");
         }else {
             const seed = {x0: _x0.value, a: _a.value, m: _m.value};
