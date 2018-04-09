@@ -4,7 +4,6 @@ import TableRow from "../TableRow";
 const ResultsTable = ({results}) => {
     return(
         <div className="row">
-            <hr />
            <table className="table">
                <thead>
                    <tr>

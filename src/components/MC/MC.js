@@ -201,7 +201,7 @@ class MC extends  Component{
                     <h3>
                         Datos: x0 = {this.state.x}, a = {this.state.a}, c = {this.state.c}, m = {this.state.m}
                     </h3>
-                        <div className="col-sm- jumbotron">
+                        <div className="col-sm-5 jumbotron">
                             <h4>
                                 {this.state.chi}
                             </h4>
