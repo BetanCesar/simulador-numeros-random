@@ -27,7 +27,7 @@ function createWindow () {
         slashes: true
     });
     mainWindow.loadURL(startUrl);*/
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL('https://simulador-numeros-random.herokuapp.com/');
 
 
     // Open the DevTools.

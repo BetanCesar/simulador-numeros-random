@@ -43,7 +43,7 @@ const AddSeedGMForm = ({addSeed = f => f}) => {
         <div className="form-group row">
             <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>m = </label>
             <div class="col-sm-11">
-                <input ref={input => _m = input} type="text" placeholder="m (módulo)" className="form-control" pattern="^[0-9]*$" required />
+                <input ref={input => _m = input} type="text" placeholder="m (módulo)" className="form-control" pattern="^[1-9][0-9]*$" required />
             </div>
         </div>
         <button className="btn btn-pill btn-primary center-block"> Generar </ button>
