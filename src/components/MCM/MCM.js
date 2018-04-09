@@ -27,7 +27,10 @@ class MCM extends  Component{
                 resOperation + "mod" + last_seed.m;
             let operation = this.getOperation(resOperation, last_seed.m);
             const randomNum = operation.res;
-            const ri = randomNum / last_seed.m;
+            let ri = 0;
+            if(last_seed.m > 0){
+                ri = randomNum / last_seed.m;
+            }
             let newResult = {generator:generator, operation: operation.ent + " + " + operation.res + "/" + last_seed.m, randomNumber:randomNum, ri:ri};
             last_seed.x0 = randomNum;
             if(results.filter(result => result.randomNumber === randomNum).length > 0){
@@ -44,8 +47,12 @@ class MCM extends  Component{
     }
 
     getOperation(number, mod){
-        let ent = parseInt(number / mod);
-        let res = number % mod;
+        let ent = 0;
+        let res = 0;
+        if(mod > 0){
+            ent = parseInt(number / mod);
+            res = number % mod;
+        }
         const operation = {ent:ent, res: res};
         return operation;
     }
@@ -53,16 +60,26 @@ class MCM extends  Component{
     evaluateValues(seed){
         let messages = [];
         let cumple = true;
-        if(this.mcd(seed.c, seed.m) === 1){
-            messages.push("Cumple con primera condicion");
-        }else {
+
+        if((seed.m) > 0) {
+            if(this.mcd(seed.c, seed.m) === 1){
+                messages.push("Cumple con primera condicion");
+            }else {
+                messages.push("No cumple con primera condicion ya que " + seed.c + "(c) y " + seed.m + "(m) no son primos relativos");
+                cumple = false;
+            }
+        }else{
             messages.push("No cumple con primera condicion ya que " + seed.c + "(c) y " + seed.m + "(m) no son primos relativos");
             cumple = false;
         }
-
-        if(this.mcd(seed.m, seed.a -1) !== 1){
-            messages.push("Cumple con segunda condicion");
-        }else {
+        if((seed.a - 1) > 1){
+            if(this.mcd(seed.m, seed.a -1) !== 1){
+                messages.push("Cumple con segunda condicion");
+            }else {
+                messages.push("No cumple con segunda condicion ya que no existe un número primo que divida a " + seed.m + "(m) y divida a " + seed.a + "(a)-1");
+                cumple = false;
+            }
+        }else{
             messages.push("No cumple con segunda condicion ya que no existe un número primo que divida a " + seed.m + "(m) y divida a " + seed.a + "(a)-1");
             cumple = false;
         }

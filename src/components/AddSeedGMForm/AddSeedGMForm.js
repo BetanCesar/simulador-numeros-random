@@ -9,6 +9,10 @@ const AddSeedGMForm = ({addSeed = f => f}) => {
             alert("Los campos no cuentan con la longitud requerida");
         }else if(isNaN(_x0.value) || isNaN(_a.value) || isNaN(_m.value) ){
             alert("El campo tiene que ser un número");
+        }else if(_m.value <= _a.value){
+            alert("El modulo (m) tiene que ser mayor que el multiplicador (a)");
+        }else if(_m.value <= _x0.value){
+            alert("El modulo (m) tiene que ser mayor que la semilla (x0)");
         }else {
             const seed = {x0: _x0.value, a: _a.value, m: _m.value};
             addSeed(seed);
@@ -27,19 +31,19 @@ const AddSeedGMForm = ({addSeed = f => f}) => {
         <div className="form-group row">
             <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>x0 = </label>
             <div class="col-sm-11">
-                <input ref={input => _x0 = input} type="text" placeholder="x0" className="form-control" pattern="^[0-9]*$" required />
+                <input ref={input => _x0 = input} type="text" placeholder="x0 (semilla)" className="form-control" pattern="^[0-9]*$" required />
             </div>
         </div>
         <div className="form-group row">
             <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>a = </label>
             <div class="col-sm-11">
-                <input ref={input => _a = input} type="text" placeholder="a" className="form-control" pattern="^[0-9]*$" required />
+                <input ref={input => _a = input} type="text" placeholder="a (multiplicador)" className="form-control" pattern="^[0-9]*$" required />
             </div>
         </div>
         <div className="form-group row">
             <label class="col-sm-1 col-form-label" style={{textAlign: "right", marginTop: "8px"}}>m = </label>
             <div class="col-sm-11">
-                <input ref={input => _m = input} type="text" placeholder="m" className="form-control" pattern="^[0-9]*$" required />
+                <input ref={input => _m = input} type="text" placeholder="m (módulo)" className="form-control" pattern="^[0-9]*$" required />
             </div>
         </div>
         <button className="btn btn-pill btn-primary center-block"> Generar </ button>
